@@ -73,11 +73,11 @@ for m in range(5):
                         for k_fold_num in range(5):
                             num_val_samples = len(x_tr) // 5
 
-                            x_tr_k = x_tr[k_fold_num * num_val_samples: (k_fold_num + 1) * num_val_samples]
-                            y_tr_k = y_tr[k_fold_num * num_val_samples: (k_fold_num + 1) * num_val_samples]
+                            x_val_k = x_tr[k_fold_num * num_val_samples: (k_fold_num + 1) * num_val_samples]
+                            y_val_k = y_tr[k_fold_num * num_val_samples: (k_fold_num + 1) * num_val_samples]
 
-                            x_val_k = np.concatenate([x_tr[:k_fold_num * num_val_samples], x_tr[(k_fold_num + 1) * num_val_samples:]], axis=0)
-                            y_val_k = np.concatenate([y_tr[:k_fold_num * num_val_samples], y_tr[(k_fold_num + 1) * num_val_samples:]], axis=0)
+                            x_tr_k = pd.concat([x_tr[:k_fold_num * num_val_samples], x_tr[(k_fold_num + 1) * num_val_samples:]], axis=0)
+                            y_tr_k = pd.concat([y_tr[:k_fold_num * num_val_samples], y_tr[(k_fold_num + 1) * num_val_samples:]], axis=0)
 
                             model = model_ANN(x_tr_k, l)
                             model.fit(x_tr_k, y_tr_k, epochs=EPOCHS, validation_split=0.2, verbose=0, callbacks=early_stop)
